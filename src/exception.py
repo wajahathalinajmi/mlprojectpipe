@@ -1,6 +1,5 @@
 import sys
-import logging
-from logger import *
+from src.logger import logging
 
 def error_detail_info(error, error_detail:sys):
     _,_,exc_tb = error_detail.exc_info()
@@ -10,7 +9,7 @@ def error_detail_info(error, error_detail:sys):
 
     return error_message
 
-class customeException(Exception):
+class CustomException(Exception):
     def __init__(self, error_message, error_detail:sys):
         super().__init__(error_message)
         self.error_message = error_detail_info(error_message, error_detail=error_detail)
@@ -18,17 +17,3 @@ class customeException(Exception):
     def __str__(self):
         return self.error_message
     
-def divide(a, b):
-    try:
-        result = a / b
-        logging.info(f"Division successful: {a} / {b} = {result}")
-        return result
-    except Exception as e:
-         logging.error("Error occurred during division", exc_info=True)
-         raise customeException("zero divide error", sys)
-        
-    
-
-# Example usage
-divide(10, 2)
-divide(5, 0)
